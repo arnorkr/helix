@@ -1,0 +1,102 @@
+use-grammars = { only = [
+  "bash",
+  "git-commit",
+  "git-config",
+  "gitignore",
+  "git-rebase",
+  "html",
+  "json",
+  "markdown",
+  "markdown_inline",
+  "lua",
+  "python",
+  "toml",
+  "yaml",
+] }
+
+[language-server]
+vale-ls = { command = "vale" }
+
+[language-server.lua-language-server.config.Lua.diagnostics]
+globals = ["vim"]
+
+[language-server.lua-language-server.config.Lua.telemetry]
+enable = false
+
+[language-server.lua-language-server.config.Lua.workspace]
+checkThirdParty = false
+
+[language-server.pyright.config.python]
+analysis = { typeCheckingMode = "basic" }
+disableOrganizeImports = false
+
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[language-server.vscode-json-language-server.config]
+provideFormatter = false
+json = { format = { enable = false }, validate = { enable = true } }
+
+[language-server.yaml-language-server.config.yaml]
+format = { enable = false }
+keyOrdering = false
+validate = { enable = true }
+schemas = { "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json" = ".gitlab-ci.{yml,yaml}" }
+
+[[language]]
+name = "bash"
+file-types = [
+  "bash",
+  "sh",
+  "tmux",
+  "zsh",
+  "zshenv",
+  "zshrc",
+  { glob = "tmux.conf" },
+  { glob = ".bash_history" },
+  { glob = ".bash_logout" },
+  { glob = ".bash_profile" },
+  { glob = ".bashrc" },
+  { glob = ".profile" },
+  { glob = ".zshenv" },
+]
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = 'shfmt', args = ["-i", "2"] }
+auto-format = true
+
+[[language]]
+name = "html"
+formatter = { command = 'prettier', args = ["--parser", "html"] }
+language-servers = ["vscode-html-language-server", "vale-ls"]
+
+[[language]]
+name = "json"
+formatter = { command = 'deno', args = ["fmt", "-", "--ext", "json"] }
+
+[[language]]
+name = "lua"
+formatter = { command = "stylua", args = ["-"] }
+auto-format = true
+
+[[language]]
+name = "markdown"
+language-servers = ["marksman", "ltex-ls", "vale-ls"]
+formatter = { command = 'prettier', args = ["--parser", "markdown"] }
+auto-format = true
+
+[[language]]
+name = "python"
+language-servers = ["pyright", "ruff", "pylyzer"]
+formatter = { command = "ruff", args = ["format", "--line-length", "88", "-"] }
+auto-format = true
+
+[[language]]
+name = "toml"
+formatter = { command = "taplo", args = ["fmt", "-"] }
+auto-format = true
+
+[[language]]
+name = "yaml"
+formatter = { command = 'prettier', args = ["--parser", "yaml"] }
+auto-format = true
