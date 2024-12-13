@@ -1,21 +1,40 @@
 use-grammars = { only = [
   "bash",
+  "diff",
   "git-commit",
   "git-config",
   "gitignore",
   "git-rebase",
   "html",
+  "ini",
   "json",
   "markdown",
   "markdown_inline",
+  "log",
   "lua",
   "python",
   "toml",
   "yaml",
 ] }
 
-[language-server]
-vale-ls = { command = "vale" }
+[language-server.harper-ls]
+command = "harper-ls"
+args = ["--stdio"]
+
+[language-server.harper-ls.config.harper-ls.linters]
+long_sentences = false
+wrong_quotes = true
+linking_verbs = true
+
+
+[language-server.ltex-ls.config]
+# Disable `MORFOLOGIK`-rules for English, and use instead Harper as spell checker.
+ltex.disabledRules = { "en-US" = [
+  "MORFOLOGIK_RULE_EN_US",
+], "en-GB" = [
+  "MORFOLOGIK_RULE_EN_GB",
+] }
+
 
 [language-server.lua-language-server.config.Lua.diagnostics]
 globals = ["vim"]
@@ -34,6 +53,9 @@ disableOrganizeImports = false
 command = "ruff"
 args = ["server"]
 
+[language-server.vale-ls]
+command = "vale-ls"
+
 [language-server.vscode-json-language-server.config]
 provideFormatter = false
 json = { format = { enable = false }, validate = { enable = true } }
@@ -42,7 +64,8 @@ json = { format = { enable = false }, validate = { enable = true } }
 format = { enable = false }
 keyOrdering = false
 validate = { enable = true }
-schemas = { "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json" = ".gitlab-ci.{yml,yaml}" }
+schemas = { "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json" = ".gitlab-ci.{yml,yaml}", "https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json" = "**/lazygit/config.yml" }
+
 
 [[language]]
 name = "bash"
@@ -66,9 +89,19 @@ formatter = { command = 'shfmt', args = ["-i", "2"] }
 auto-format = true
 
 [[language]]
+name = "ini"
+file-types = [
+  "ini",
+  { glob = ".coveragerc" },
+  { glob = ".editorconfig" },
+  { glob = ".npmrc" },
+  { glob = "npmrc" },
+]
+
+[[language]]
 name = "html"
 formatter = { command = 'prettier', args = ["--parser", "html"] }
-language-servers = ["vscode-html-language-server", "vale-ls"]
+language-servers = ["vscode-html-language-server", "vale-ls", "harper-ls"]
 
 [[language]]
 name = "json"
@@ -76,27 +109,30 @@ formatter = { command = 'deno', args = ["fmt", "-", "--ext", "json"] }
 
 [[language]]
 name = "lua"
+language-servers = ["lua-language-server", "vale-ls", "harper-ls"]
 formatter = { command = "stylua", args = ["-"] }
 auto-format = true
 
 [[language]]
 name = "markdown"
-language-servers = ["marksman", "ltex-ls", "vale-ls"]
+language-servers = ["marksman", "harper-ls", "ltex-ls", "vale-ls"]
 formatter = { command = 'prettier', args = ["--parser", "markdown"] }
 auto-format = true
 
 [[language]]
 name = "python"
-language-servers = ["pyright", "ruff", "pylyzer"]
+language-servers = ["pyright", "ruff", "harper-ls", "vale-ls"]
 formatter = { command = "ruff", args = ["format", "--line-length", "88", "-"] }
 auto-format = true
 
 [[language]]
 name = "toml"
+language-servers = ["taplo", "harper-ls"]
 formatter = { command = "taplo", args = ["fmt", "-"] }
 auto-format = true
 
 [[language]]
 name = "yaml"
+language-servers = ["yaml-language-server", "harpe-ls"]
 formatter = { command = 'prettier', args = ["--parser", "yaml"] }
 auto-format = true
