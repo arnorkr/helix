@@ -66,7 +66,10 @@ json = { format = { enable = false }, validate = { enable = true } }
 format = { enable = false }
 keyOrdering = false
 validate = { enable = true }
-schemas = { "https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json" = ".gitlab-ci.{yml,yaml}", "https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json" = "**/lazygit/config.yml" }
+[language-server.yaml-language-server.config.yaml.schemas]
+"https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json" = ".gitlab-ci.{yml,yaml}"
+"https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json" = "**/lazygit/config.yml"
+"https://raw.githubusercontent.com/DavidAnson/markdownlint/main/schema/markdownlint-config-schema.json" = ".markdownlint.yaml"
 
 
 [[language]]
