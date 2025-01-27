@@ -1,6 +1,7 @@
 use-grammars = { only = [
   "bash",
   "diff",
+  "dockerfile",
   "git-commit",
   "git-config",
   "gitignore",
@@ -13,6 +14,7 @@ use-grammars = { only = [
   "log",
   "lua",
   "python",
+  "rst",
   "toml",
   "yaml",
 ] }
