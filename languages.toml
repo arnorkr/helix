@@ -29,9 +29,9 @@ wrong_quotes = true
 linking_verbs = true
 
 
-[language-server.ltex-ls.config]
+[language-server.ltex-ls.config.ltex]
 # Disable `MORFOLOGIK`-rules for English, and use instead Harper as spell checker.
-ltex.disabledRules = { "en-US" = [
+disabledRules = { "en-US" = [
   "MORFOLOGIK_RULE_EN_US",
 ], "en-GB" = [
   "MORFOLOGIK_RULE_EN_GB",
